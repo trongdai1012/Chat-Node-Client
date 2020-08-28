@@ -10,7 +10,7 @@ let socket;
 
 const Chat = (props) => {
     const [name, setName] = useState('');
-    const [room, setRoom] = useState('');
+    const [roomCode, setRoomCode] = useState('ABC');
     const [message, setMessage] = useState('');
     const [messages, setMessages] = useState([]);
     const ENDPOINT = 'localhost:4321';
@@ -18,16 +18,16 @@ const Chat = (props) => {
     // let socket;
 
     useEffect(() => {
-        const { room } = queryString.parse(props.location.search);
+        // const room = "ABC";
 
-        const { name } = props.user;
+        const userId = props.user.id;
 
         socket = io(ENDPOINT);
 
-        setName(name);
-        setRoom(room);
+        // setName(name);
+        // setRoomCode(room);
 
-        socket.emit('join', { name, room }, () => {
+        socket.emit('join', { userId, roomCode }, () => {
 
         });
 
@@ -47,7 +47,7 @@ const Chat = (props) => {
     const sendMessage = (e) => {
         e.preventDefault();
         if (message) {
-            socket.emit('sendMessage', message, () => setMessage(''));
+            socket.emit('sendMessage', message, props.user.id, roomCode, () => setMessage(''));
         }
     }
 

@@ -5,7 +5,7 @@ const Messages = ({ messages, name }) => (
     {messages ? messages.map((item, key) => {
       return <li className="sent">
         <img src="http://emilcarlsson.se/assets/mikeross.png" alt="" />
-        <p key={key}>{item}
+        <p key={key}>{item.text}
         </p>
       </li>
     }) : null}
